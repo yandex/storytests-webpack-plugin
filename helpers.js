@@ -19,14 +19,16 @@ const generateTest = (
     `${componentStoryName}.${postfix}.js`
   );
 
-  if (!fs.existsSync(testPath)) {
-    fs.createWriteStream(testPath, "utf8");
-    fs.writeFileSync(
-      testPath,
-      testTemplate(componentName, componentStoryName),
-      "utf8"
-    );
+  if (fs.existsSync(testPath)) {
+    return;
   }
+
+  fs.createWriteStream(testPath, "utf8");
+  fs.writeFileSync(
+    testPath,
+    testTemplate(componentName, componentStoryName),
+    "utf8"
+  );
 };
 
 module.exports = {
