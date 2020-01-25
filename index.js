@@ -1,12 +1,7 @@
 const fs = require("fs");
 var glob = require("glob");
 
-const {
-  isArray,
-  isFunction,
-  isRegExp,
-  isString
-} = require("./check-errors");
+const { isArray, isFunction, isRegExp, isString } = require("./check-errors");
 const {
   getComponentName,
   getComponentStoriesNames,
