@@ -1,5 +1,5 @@
 const fs = require("fs");
-var glob = require("glob");
+const glob = require("glob");
 
 const { isArray, isFunction, isRegExp, isString } = require("./check-errors");
 const {
@@ -26,12 +26,7 @@ class StorytestsWebpackPlugin {
         testTemplate
       } = this.options;
 
-      isRegExp(componentNamePattern, "componentNamePattern");
-      isRegExp(storyNamePattern, "storyNamePattern");
-      isString(storyFilesPath, "storyFilesPath");
-      isString(testDirectoryPath, "testDirectoryPath");
-      isArray(testFilePostfixes, "testFilePostfixes");
-      isFunction(testTemplate, "testTemplate");
+      this.checkArgs();
 
       glob(storyFilesPath, (err, matches) => {
         if (err) {
@@ -74,6 +69,53 @@ class StorytestsWebpackPlugin {
       });
     });
   }
+
+  checkArgs = () => {
+    const {
+      componentNamePattern,
+      storyFilesPath,
+      storyNamePattern,
+      testDirectoryPath,
+      testFilePostfixes,
+      testTemplate
+    } = this.options;
+
+    if (!isRegExp(componentNamePattern)) {
+      throw new Error(
+        `Expected componentNamePattern to be regular expression but got ${componentNamePattern}`
+      );
+    }
+
+    if (!isRegExp(storyNamePattern)) {
+      throw new Error(
+        `Expected storyNamePattern to be regular expression but got ${storyNamePattern}`
+      );
+    }
+
+    if (!isString(storyFilesPath)) {
+      throw new Error(
+        `Expected storyFilesPath to be string but got ${storyFilesPath}`
+      );
+    }
+
+    if (!isString(testDirectoryPath)) {
+      throw new Error(
+        `Expected testDirectoryPath to be string but got ${testDirectoryPath}`
+      );
+    }
+
+    if (!isArray(testFilePostfixes)) {
+      throw new Error(
+        `Expected testFilePostfixes to be an array of string but got ${testFilePostfixes}`
+      );
+    }
+
+    if (!isFunction(testTemplate)) {
+      throw new Error(
+        `Expected testTemplate to be a function but got ${testTemplate}`
+      );
+    }
+  };
 }
 
 module.exports = StorytestsWebpackPlugin;
