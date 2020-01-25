@@ -1,28 +1,28 @@
-function isRegExp(value, valueName) {
+function isRegExp(value, fieldName) {
   if (!(value instanceof RegExp)) {
     throw new Error(
-      `Expected ${valueName} to be regular expression but got ${value}`
+      `Expected ${fieldName} to be regular expression but got ${value}`
     );
   }
 }
 
-function isString(value, valueName) {
+function isString(value, fieldName) {
   if (typeof value !== "string") {
-    throw new Error(`Expected ${valueName} to be string but got ${value}`);
+    throw new Error(`Expected ${fieldName} to be string but got ${value}`);
   }
 }
 
-function isArray(value, valueName) {
+function isArray(value, fieldName) {
   if (!Array.isArray(value)) {
     throw new Error(
-      `Expected ${valueName} to be an array of string but got ${value}`
+      `Expected ${fieldName} to be an array of string but got ${value}`
     );
   }
 }
 
-function isFunction(value, valueName) {
+function isFunction(value, fieldName) {
   if (typeof value !== "function") {
-    throw new Error(`Expected ${valueName} to be a function but got ${value}`);
+    throw new Error(`Expected ${fieldName} to be a function but got ${value}`);
   }
 }
 
