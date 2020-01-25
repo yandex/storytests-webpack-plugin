@@ -44,13 +44,12 @@ class StorytestsWebpackPlugin {
           }
 
           const fileData = fs.readFileSync(filePath, "utf8");
-          const dataWithoutSpaces = fileData.replace(/\s/g, "");
           const componentName = getComponentName(
-            dataWithoutSpaces,
+            fileData,
             componentNamePattern
           );
           const componentStories = getComponentStoriesNames(
-            dataWithoutSpaces,
+            fileData,
             storyNamePattern
           );
 

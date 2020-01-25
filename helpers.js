@@ -5,7 +5,7 @@ const getComponentName = (fileContent, pattern) =>
   fileContent.match(pattern)[0];
 
 const getComponentStoriesNames = (fileContent, pattern) =>
-  fileContent.match(pattern);
+  fileContent.match(pattern).map(storyName => storyName.replace(/\s/i, "-"));
 
 const generateTest = (
   testDirectoryPath,
