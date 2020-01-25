@@ -1,0 +1,16 @@
+{
+  "name": "create-storybook-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baushonok/createTestsPlugin.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/baushonok/createTestsPlugin/issues"
+  },
+  "homepage": "https://github.com/baushonok/createTestsPlugin#readme"
+}
