@@ -70,7 +70,7 @@ class StorytestsWebpackPlugin {
     });
   }
 
-  checkArgs = () => {
+  checkArgs() {
     const {
       componentNamePattern,
       storyFilesPath,
@@ -115,7 +115,7 @@ class StorytestsWebpackPlugin {
         `Expected testTemplate to be a function but got ${testTemplate}`
       );
     }
-  };
+  }
 }
 
 module.exports = StorytestsWebpackPlugin;
