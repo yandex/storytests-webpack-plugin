@@ -13,9 +13,9 @@ const {
   generateTest
 } = require("./helpers");
 
-const pluginName = "CreateTestsPlugin";
+const pluginName = "StorytestsWebpackPlugin";
 
-class CreateTestsPlugin {
+class StorytestsWebpackPlugin {
   constructor(options) {
     this.options = options;
   }
@@ -82,4 +82,4 @@ class CreateTestsPlugin {
   }
 }
 
-module.exports = CreateTestsPlugin;
+module.exports = StorytestsWebpackPlugin;
