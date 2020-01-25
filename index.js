@@ -2,10 +2,10 @@ const fs = require("fs");
 var glob = require("glob");
 
 const {
-  checkArray,
-  checkFunction,
-  checkRegExp,
-  checkString
+  isArray,
+  isFunction,
+  isRegExp,
+  isString
 } = require("./check-errors");
 const {
   getComponentName,
@@ -31,12 +31,12 @@ class StorytestsWebpackPlugin {
         testTemplate
       } = this.options;
 
-      checkRegExp(componentNamePattern, "componentNamePattern");
-      checkRegExp(storyNamePattern, "storyNamePattern");
-      checkString(storyFilesPath, "storyFilesPath");
-      checkString(testDirectoryPath, "testDirectoryPath");
-      checkArray(testFilePostfixes, "testFilePostfixes");
-      checkFunction(testTemplate, "testTemplate");
+      isRegExp(componentNamePattern, "componentNamePattern");
+      isRegExp(storyNamePattern, "storyNamePattern");
+      isString(storyFilesPath, "storyFilesPath");
+      isString(testDirectoryPath, "testDirectoryPath");
+      isArray(testFilePostfixes, "testFilePostfixes");
+      isFunction(testTemplate, "testTemplate");
 
       glob(storyFilesPath, (err, matches) => {
         if (err) {
@@ -65,7 +65,7 @@ class StorytestsWebpackPlugin {
 
           componentStories.forEach(story =>
             testFilePostfixes.forEach(postfix => {
-              checkString(postfix, "testFilePostfixes");
+              isString(postfix, "testFilePostfixes");
 
               generateTest(
                 testDirectoryPath,
