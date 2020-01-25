@@ -3,9 +3,10 @@ const glob = require("glob");
 
 const { isArray, isFunction, isRegExp, isString } = require("./check-errors");
 const {
+  generateTest,
   getComponentName,
   getComponentStoriesNames,
-  generateTest
+  getTestDirectoryPath
 } = require("./helpers");
 
 const pluginName = "StorytestsWebpackPlugin";
@@ -48,8 +49,13 @@ class StorytestsWebpackPlugin {
             storyNamePattern
           );
 
-          if (!fs.existsSync(testDirectoryPath)) {
-            fs.mkdirSync(testDirectoryPath);
+          const testDirectory = getTestDirectoryPath(
+            filePath,
+            testDirectoryPath
+          );
+
+          if (!fs.existsSync(testDirectory)) {
+            fs.mkdirSync(testDirectory);
           }
 
           componentStories.forEach(story =>
@@ -57,7 +63,7 @@ class StorytestsWebpackPlugin {
               isString(postfix, "testFilePostfixes");
 
               generateTest(
-                testDirectoryPath,
+                testDirectory,
                 componentName,
                 story,
                 postfix,

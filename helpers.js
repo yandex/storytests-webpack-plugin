@@ -7,6 +7,9 @@ const getComponentName = (fileContent, pattern) =>
 const getComponentStoriesNames = (fileContent, pattern) =>
   fileContent.match(pattern).map(storyName => storyName.replace(/\s/i, "-"));
 
+const getTestDirectoryPath = (pathToStory, relatedPath) =>
+  path.resolve(pathToStory, relatedPath);
+
 const generateTest = (
   testDirectoryPath,
   componentName,
@@ -32,7 +35,8 @@ const generateTest = (
 };
 
 module.exports = {
+  generateTest,
   getComponentName,
   getComponentStoriesNames,
-  generateTest
+  getTestDirectoryPath
 };
