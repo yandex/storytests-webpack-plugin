@@ -6,7 +6,7 @@ const {
   checkFunction,
   checkRegExp,
   checkString
-} = require("./checkRegExp");
+} = require("./check-errors");
 const {
   getComponentName,
   getComponentStoriesNames,
