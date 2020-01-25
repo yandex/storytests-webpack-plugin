@@ -5,12 +5,12 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/baushonok/createTestsPlugin.git"
+    "url": "git+https://github.com/baushonok/storytests.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/baushonok/createTestsPlugin/issues"
+    "url": "https://github.com/baushonok/storytests/issues"
   },
-  "homepage": "https://github.com/baushonok/createTestsPlugin#readme"
+  "homepage": "https://github.com/baushonok/storytests#readme"
 }
