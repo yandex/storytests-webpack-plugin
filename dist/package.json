@@ -1,0 +1,29 @@
+{
+  "name": "storytests-webpack-plugin",
+  "version": "1.0.0",
+  "description": "Plugin gives component and its' stories names and based on this creates test files",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yandex/storytests-webpack-plugin"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yandex/storytests-webpack-plugin/issues"
+  },
+  "scripts": {
+    "build": "webpack",
+    "publish": "cd dist && npm publish"
+  },
+  "homepage": "https://github.com/yandex/storytests-webpack-plugin#readme",
+  "devDependencies": {
+    "@babel/core": "7.8.4",
+    "babel-loader": "8.0.6",
+    "webpack": "4.41.6",
+    "webpack-cli": "3.3.11"
+  },
+  "dependencies": {
+    "glob": "7.1.6"
+  }
+}
