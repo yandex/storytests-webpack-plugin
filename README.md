@@ -1,7 +1,11 @@
+# Storytests Webpack Plugin
+
 Plugin gives component and its' stories names and based on this creates test files.
 
 ## Installation
-`npm i storytests-webpack-plugin --save-dev`
+```bash
+npm i storytests-webpack-plugin --save-dev
+```
 
 ## Usage
 ### Define parameters
@@ -39,7 +43,7 @@ import { testTemplate } from './helpers/';
 module.exports = {
     ...
     plugins: [
-        new CreateTestsPlugin({
+        new StorytestsWebpackPlugin({
             componentNamePattern,
             storyFilesPath,
             storyNamePattern,
