@@ -55,7 +55,7 @@ class StorytestsWebpackPlugin {
           );
 
           if (!fs.existsSync(testDirectory)) {
-            fs.mkdirSync(testDirectory);
+            fs.mkdirSync(testDirectory, { recursive: true });
           }
 
           componentStories.forEach(story =>
