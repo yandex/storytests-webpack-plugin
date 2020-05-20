@@ -1,6 +1,6 @@
 {
   "name": "storytests-webpack-plugin",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Plugin gives component and its' stories names and based on this creates test files",
   "main": "dist/index.js",
   "files": [
