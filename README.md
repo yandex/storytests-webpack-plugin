@@ -5,7 +5,8 @@
 
 # Storytests Webpack Plugin
 
-Plugin gives component and its' stories names and based on this creates test files.
+If you use Storybook and you want to cover all your stories by tests, this plugin helps you to do this.  
+This plugin creates test files based on your file structure.
 
 ## Installation
 ```bash
