@@ -1,7 +1,7 @@
 [![Travis][build-badge]][build]
 
-[build-badge]: https://img.shields.io/travis/yandex/storytests-webpack-plugin/tests.png?style=flat-square
-[build]: https://travis-ci.org/yandex/storytests-webpack-plugin
+[build-badge]: https://img.shields.io/travis/baushonok/storytests-webpack-plugin/tests.png?style=flat-square
+[build]: https://travis-ci.org/baushonok/storytests-webpack-plugin
 
 # Storytests Webpack Plugin
 
