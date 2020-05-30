@@ -21,14 +21,17 @@
   },
   "scripts": {
     "build": "rollup -c ./rollup.config.js",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "homepage": "https://github.com/yandex/storytests-webpack-plugin#readme",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^11.0.2",
-    "@rollup/plugin-node-resolve": "^7.1.1",
-    "@rollup/plugin-url": "^4.0.2",
-    "rollup-plugin-peer-deps-external": "^2.2.2",
+    "@rollup/plugin-commonjs": "11.0.2",
+    "@rollup/plugin-node-resolve": "7.1.1",
+    "@rollup/plugin-url": "4.0.2",
+    "jest": "26.0.1",
+    "rollup-plugin-peer-deps-external": "2.2.2",
     "rollup-plugin-terser": "5.2.0"
   },
   "dependencies": {
