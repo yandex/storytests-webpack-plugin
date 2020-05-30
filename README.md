@@ -1,3 +1,8 @@
+[![Travis][build-badge]][build]
+
+[build-badge]: https://img.shields.io/travis/yandex/storytests-webpack-plugin/tests.png?style=flat-square
+[build]: https://travis-ci.org/yandex/storytests-webpack-plugin
+
 # Storytests Webpack Plugin
 
 Plugin gives component and its' stories names and based on this creates test files.
