@@ -1,15 +1,17 @@
-const fs = require("fs");
-const glob = require("glob");
+const fs = require('fs');
+const glob = require('glob');
 
-const { isArray, isFunction, isRegExp, isString } = require("./check-errors");
+const {
+  isArray, isFunction, isRegExp, isString,
+} = require('./check-errors');
 const {
   generateTest,
   getComponentName,
   getComponentStoriesNames,
-  getTestDirectoryPath
-} = require("./helpers");
+  getTestDirectoryPath,
+} = require('./helpers');
 
-const pluginName = "StorytestsWebpackPlugin";
+const pluginName = 'StorytestsWebpackPlugin';
 
 class StorytestsWebpackPlugin {
   constructor(options) {
@@ -17,14 +19,14 @@ class StorytestsWebpackPlugin {
   }
 
   apply(compiler) {
-    compiler.hooks.run.tap(pluginName, compilation => {
+    compiler.hooks.run.tap(pluginName, () => {
       const {
         componentNamePattern,
         storyFilesPath,
         storyNamePattern,
         testDirectoryPath,
         testFilePostfixes,
-        testTemplate
+        testTemplate,
       } = this.options;
 
       this.checkArgs();
@@ -34,43 +36,41 @@ class StorytestsWebpackPlugin {
           throw err;
         }
 
-        matches.forEach(filePath => {
+        matches.forEach((filePath) => {
           if (!fs.existsSync(filePath)) {
             throw new Error(`File ${filePath} does not exist`);
           }
 
-          const fileData = fs.readFileSync(filePath, "utf8");
+          const fileData = fs.readFileSync(filePath, 'utf8');
           const componentName = getComponentName(
             fileData,
-            componentNamePattern
+            componentNamePattern,
           );
           const componentStories = getComponentStoriesNames(
             fileData,
-            storyNamePattern
+            storyNamePattern,
           );
 
           const testDirectory = getTestDirectoryPath(
             filePath,
-            testDirectoryPath
+            testDirectoryPath,
           );
 
           if (!fs.existsSync(testDirectory)) {
             fs.mkdirSync(testDirectory, { recursive: true });
           }
 
-          componentStories.forEach(story =>
-            testFilePostfixes.forEach(postfix => {
-              isString(postfix, "testFilePostfixes");
+          componentStories.forEach((story) => testFilePostfixes.forEach((postfix) => {
+            isString(postfix, 'testFilePostfixes');
 
-              generateTest(
-                testDirectory,
-                componentName,
-                story,
-                postfix,
-                testTemplate
-              );
-            })
-          );
+            generateTest(
+              testDirectory,
+              componentName,
+              story,
+              postfix,
+              testTemplate,
+            );
+          }));
         });
       });
     });
@@ -83,42 +83,42 @@ class StorytestsWebpackPlugin {
       storyNamePattern,
       testDirectoryPath,
       testFilePostfixes,
-      testTemplate
+      testTemplate,
     } = this.options;
 
     if (!isRegExp(componentNamePattern)) {
       throw new Error(
-        `Expected componentNamePattern to be regular expression but got ${componentNamePattern}`
+        `Expected componentNamePattern to be regular expression but got ${componentNamePattern}`,
       );
     }
 
     if (!isRegExp(storyNamePattern)) {
       throw new Error(
-        `Expected storyNamePattern to be regular expression but got ${storyNamePattern}`
+        `Expected storyNamePattern to be regular expression but got ${storyNamePattern}`,
       );
     }
 
     if (!isString(storyFilesPath)) {
       throw new Error(
-        `Expected storyFilesPath to be string but got ${storyFilesPath}`
+        `Expected storyFilesPath to be string but got ${storyFilesPath}`,
       );
     }
 
     if (!isString(testDirectoryPath)) {
       throw new Error(
-        `Expected testDirectoryPath to be string but got ${testDirectoryPath}`
+        `Expected testDirectoryPath to be string but got ${testDirectoryPath}`,
       );
     }
 
     if (!isArray(testFilePostfixes)) {
       throw new Error(
-        `Expected testFilePostfixes to be an array of string but got ${testFilePostfixes}`
+        `Expected testFilePostfixes to be an array of string but got ${testFilePostfixes}`,
       );
     }
 
     if (!isFunction(testTemplate)) {
       throw new Error(
-        `Expected testTemplate to be a function but got ${testTemplate}`
+        `Expected testTemplate to be a function but got ${testTemplate}`,
       );
     }
   }

@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 const getComponentName = (fileContent, pattern) => {
   const match = fileContent.match(pattern);
@@ -18,33 +18,33 @@ const getComponentStoriesNames = (fileContent, pattern) => {
     throw new Error("Couldn't find story name, check storyNamePattern");
   }
 
-  return match.map((storyName) => storyName.replace(/\s/gi, "-"));
+  return match.map((storyName) => storyName.replace(/\s/gi, '-'));
 };
 
-const getTestDirectoryPath = (pathToStory, relatedPathToTestDirectory) =>
-  path.resolve(pathToStory, relatedPathToTestDirectory);
+// eslint-disable-next-line max-len
+const getTestDirectoryPath = (pathToStory, relatedPathToTestDirectory) => path.resolve(pathToStory, relatedPathToTestDirectory);
 
 const generateTest = (
   testDirectoryPath,
   componentName,
   componentStoryName,
   postfix,
-  testTemplate
+  testTemplate,
 ) => {
   const testPath = path.resolve(
     testDirectoryPath,
-    `${componentStoryName}.${postfix}.js`
+    `${componentStoryName}.${postfix}.js`,
   );
 
   if (fs.existsSync(testPath)) {
     return;
   }
 
-  fs.createWriteStream(testPath, "utf8");
+  fs.createWriteStream(testPath, 'utf8');
   fs.writeFileSync(
     testPath,
     testTemplate(componentName, componentStoryName),
-    "utf8"
+    'utf8',
   );
 };
 

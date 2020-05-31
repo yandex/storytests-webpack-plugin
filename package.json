@@ -1,7 +1,7 @@
 {
   "name": "storytests-webpack-plugin",
   "version": "1.0.6",
-  "description": "Plugin gives component and its' stories names and based on this creates test files",
+  "description": "Plugin creates test files based on Storybook structure",
   "main": "dist/index.js",
   "files": [
     "dist/index.js"
@@ -22,6 +22,8 @@
   "scripts": {
     "build": "rollup -c ./rollup.config.js",
     "prepublishOnly": "npm run build",
+    "lint": "eslint *.js",
+    "lint:fix": "eslint *.js --fix",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
@@ -30,6 +32,9 @@
     "@rollup/plugin-commonjs": "11.0.2",
     "@rollup/plugin-node-resolve": "7.1.1",
     "@rollup/plugin-url": "4.0.2",
+    "eslint": "6.8.0",
+    "eslint-config-airbnb-base": "14.1.0",
+    "eslint-plugin-import": "2.20.2",
     "husky": "4.2.5",
     "jest": "26.0.1",
     "rollup-plugin-peer-deps-external": "2.2.2",
@@ -40,7 +45,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test"
+      "pre-commit": "npm run lint && npm test"
     }
   }
 }
