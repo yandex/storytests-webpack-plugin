@@ -64,6 +64,7 @@ describe('helpers', () => {
     const componentStoryName = 'Default';
     const postfix = testFilePostfixes[0];
 
+    const existsSyncSpy = jest.spyOn(fs, 'existsSync');
     const createWriteStreamSpy = jest.spyOn(fs, 'createWriteStream').mockImplementation(() => {});
     const writeFileSyncSpy = jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
 
@@ -74,7 +75,7 @@ describe('helpers', () => {
     });
 
     test('should generate test file', () => {
-      const existsSyncSpy = jest.spyOn(fs, 'existsSync').mockImplementation(() => false);
+      existsSyncSpy.mockImplementation(() => false);
 
       generateTest(
         getTestDirectoryPath(pathToStory, testDirectoryPath),
@@ -90,7 +91,7 @@ describe('helpers', () => {
     });
 
     test('should not generate test file', () => {
-      const existsSyncSpy = jest.spyOn(fs, 'existsSync').mockImplementation(() => true);
+      existsSyncSpy.mockImplementation(() => true);
 
       generateTest(
         getTestDirectoryPath(pathToStory, testDirectoryPath),
