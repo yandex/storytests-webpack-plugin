@@ -1,15 +1,15 @@
-const fs = require("fs");
-const glob = require("glob");
+const fs = require('fs');
+const glob = require('glob');
 
-const { isArray, isFunction, isRegExp, isString } = require("./check-errors");
+const { isArray, isFunction, isRegExp, isString } = require('./check-errors');
 const {
   generateTest,
   getComponentName,
   getComponentStoriesNames,
-  getTestDirectoryPath
-} = require("./helpers");
+  getTestDirectoryPath,
+} = require('./helpers');
 
-const pluginName = "StorytestsWebpackPlugin";
+const pluginName = 'StorytestsWebpackPlugin';
 
 class StorytestsWebpackPlugin {
   constructor(options) {
@@ -17,14 +17,14 @@ class StorytestsWebpackPlugin {
   }
 
   apply(compiler) {
-    compiler.hooks.run.tap(pluginName, compilation => {
+    compiler.hooks.run.tap(pluginName, () => {
       const {
         componentNamePattern,
         storyFilesPath,
         storyNamePattern,
         testDirectoryPath,
         testFilePostfixes,
-        testTemplate
+        testTemplate,
       } = this.options;
 
       this.checkArgs();
@@ -34,41 +34,26 @@ class StorytestsWebpackPlugin {
           throw err;
         }
 
-        matches.forEach(filePath => {
+        matches.forEach((filePath) => {
           if (!fs.existsSync(filePath)) {
             throw new Error(`File ${filePath} does not exist`);
           }
 
-          const fileData = fs.readFileSync(filePath, "utf8");
-          const componentName = getComponentName(
-            fileData,
-            componentNamePattern
-          );
-          const componentStories = getComponentStoriesNames(
-            fileData,
-            storyNamePattern
-          );
+          const fileData = fs.readFileSync(filePath, 'utf8');
+          const componentName = getComponentName(fileData, componentNamePattern);
+          const componentStories = getComponentStoriesNames(fileData, storyNamePattern);
 
-          const testDirectory = getTestDirectoryPath(
-            filePath,
-            testDirectoryPath
-          );
+          const testDirectory = getTestDirectoryPath(filePath, testDirectoryPath);
 
           if (!fs.existsSync(testDirectory)) {
             fs.mkdirSync(testDirectory, { recursive: true });
           }
 
-          componentStories.forEach(story =>
-            testFilePostfixes.forEach(postfix => {
-              isString(postfix, "testFilePostfixes");
+          componentStories.forEach((story) =>
+            testFilePostfixes.forEach((postfix) => {
+              isString(postfix, 'testFilePostfixes');
 
-              generateTest(
-                testDirectory,
-                componentName,
-                story,
-                postfix,
-                testTemplate
-              );
+              generateTest(testDirectory, componentName, story, postfix, testTemplate);
             })
           );
         });
@@ -83,7 +68,7 @@ class StorytestsWebpackPlugin {
       storyNamePattern,
       testDirectoryPath,
       testFilePostfixes,
-      testTemplate
+      testTemplate,
     } = this.options;
 
     if (!isRegExp(componentNamePattern)) {
@@ -99,15 +84,11 @@ class StorytestsWebpackPlugin {
     }
 
     if (!isString(storyFilesPath)) {
-      throw new Error(
-        `Expected storyFilesPath to be string but got ${storyFilesPath}`
-      );
+      throw new Error(`Expected storyFilesPath to be string but got ${storyFilesPath}`);
     }
 
     if (!isString(testDirectoryPath)) {
-      throw new Error(
-        `Expected testDirectoryPath to be string but got ${testDirectoryPath}`
-      );
+      throw new Error(`Expected testDirectoryPath to be string but got ${testDirectoryPath}`);
     }
 
     if (!isArray(testFilePostfixes)) {
@@ -117,9 +98,7 @@ class StorytestsWebpackPlugin {
     }
 
     if (!isFunction(testTemplate)) {
-      throw new Error(
-        `Expected testTemplate to be a function but got ${testTemplate}`
-      );
+      throw new Error(`Expected testTemplate to be a function but got ${testTemplate}`);
     }
   }
 }

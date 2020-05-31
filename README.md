@@ -1,6 +1,12 @@
+[![Travis][build-badge]][build]
+
+[build-badge]: https://img.shields.io/travis/yandex/storytests-webpack-plugin/master.png?style=flat-square
+[build]: https://travis-ci.org/yandex/storytests-webpack-plugin
+
 # Storytests Webpack Plugin
 
-Plugin gives component and its' stories names and based on this creates test files.
+If you use Storybook and you want to cover all your stories by tests, this plugin helps you to do this.  
+This plugin creates test files based on your Storybook structure.
 
 ## Installation
 ```bash
