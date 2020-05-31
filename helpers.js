@@ -21,31 +21,24 @@ const getComponentStoriesNames = (fileContent, pattern) => {
   return match.map((storyName) => storyName.replace(/\s/gi, '-'));
 };
 
-// eslint-disable-next-line max-len
-const getTestDirectoryPath = (pathToStory, relatedPathToTestDirectory) => path.resolve(pathToStory, relatedPathToTestDirectory);
+const getTestDirectoryPath = (pathToStory, relatedPathToTestDirectory) =>
+  path.resolve(pathToStory, relatedPathToTestDirectory);
 
 const generateTest = (
   testDirectoryPath,
   componentName,
   componentStoryName,
   postfix,
-  testTemplate,
+  testTemplate
 ) => {
-  const testPath = path.resolve(
-    testDirectoryPath,
-    `${componentStoryName}.${postfix}.js`,
-  );
+  const testPath = path.resolve(testDirectoryPath, `${componentStoryName}.${postfix}.js`);
 
   if (fs.existsSync(testPath)) {
     return;
   }
 
   fs.createWriteStream(testPath, 'utf8');
-  fs.writeFileSync(
-    testPath,
-    testTemplate(componentName, componentStoryName),
-    'utf8',
-  );
+  fs.writeFileSync(testPath, testTemplate(componentName, componentStoryName), 'utf8');
 };
 
 module.exports = {

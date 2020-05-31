@@ -1,9 +1,7 @@
 const fs = require('fs');
 const glob = require('glob');
 
-const {
-  isArray, isFunction, isRegExp, isString,
-} = require('./check-errors');
+const { isArray, isFunction, isRegExp, isString } = require('./check-errors');
 const {
   generateTest,
   getComponentName,
@@ -42,35 +40,22 @@ class StorytestsWebpackPlugin {
           }
 
           const fileData = fs.readFileSync(filePath, 'utf8');
-          const componentName = getComponentName(
-            fileData,
-            componentNamePattern,
-          );
-          const componentStories = getComponentStoriesNames(
-            fileData,
-            storyNamePattern,
-          );
+          const componentName = getComponentName(fileData, componentNamePattern);
+          const componentStories = getComponentStoriesNames(fileData, storyNamePattern);
 
-          const testDirectory = getTestDirectoryPath(
-            filePath,
-            testDirectoryPath,
-          );
+          const testDirectory = getTestDirectoryPath(filePath, testDirectoryPath);
 
           if (!fs.existsSync(testDirectory)) {
             fs.mkdirSync(testDirectory, { recursive: true });
           }
 
-          componentStories.forEach((story) => testFilePostfixes.forEach((postfix) => {
-            isString(postfix, 'testFilePostfixes');
+          componentStories.forEach((story) =>
+            testFilePostfixes.forEach((postfix) => {
+              isString(postfix, 'testFilePostfixes');
 
-            generateTest(
-              testDirectory,
-              componentName,
-              story,
-              postfix,
-              testTemplate,
-            );
-          }));
+              generateTest(testDirectory, componentName, story, postfix, testTemplate);
+            })
+          );
         });
       });
     });
@@ -88,38 +73,32 @@ class StorytestsWebpackPlugin {
 
     if (!isRegExp(componentNamePattern)) {
       throw new Error(
-        `Expected componentNamePattern to be regular expression but got ${componentNamePattern}`,
+        `Expected componentNamePattern to be regular expression but got ${componentNamePattern}`
       );
     }
 
     if (!isRegExp(storyNamePattern)) {
       throw new Error(
-        `Expected storyNamePattern to be regular expression but got ${storyNamePattern}`,
+        `Expected storyNamePattern to be regular expression but got ${storyNamePattern}`
       );
     }
 
     if (!isString(storyFilesPath)) {
-      throw new Error(
-        `Expected storyFilesPath to be string but got ${storyFilesPath}`,
-      );
+      throw new Error(`Expected storyFilesPath to be string but got ${storyFilesPath}`);
     }
 
     if (!isString(testDirectoryPath)) {
-      throw new Error(
-        `Expected testDirectoryPath to be string but got ${testDirectoryPath}`,
-      );
+      throw new Error(`Expected testDirectoryPath to be string but got ${testDirectoryPath}`);
     }
 
     if (!isArray(testFilePostfixes)) {
       throw new Error(
-        `Expected testFilePostfixes to be an array of string but got ${testFilePostfixes}`,
+        `Expected testFilePostfixes to be an array of string but got ${testFilePostfixes}`
       );
     }
 
     if (!isFunction(testTemplate)) {
-      throw new Error(
-        `Expected testTemplate to be a function but got ${testTemplate}`,
-      );
+      throw new Error(`Expected testTemplate to be a function but got ${testTemplate}`);
     }
   }
 }
