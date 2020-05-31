@@ -1,6 +1,4 @@
-const testTemplateMock = jest.fn(
-  (componentName, storyName) => `${componentName}-${storyName}`
-);
+const testTemplateMock = jest.fn((componentName, storyName) => `${componentName}-${storyName}`);
 
 module.exports = {
   testTemplateMock,

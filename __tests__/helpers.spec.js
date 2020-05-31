@@ -1,16 +1,11 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
-const helpers = require("../helpers");
-const helpersMocks = require("../__mocks__/helpers.mock");
-const helpersStubs = require("../__mocks__/helpers.stub");
+const helpers = require('../helpers');
+const helpersMocks = require('../__mocks__/helpers.mock');
+const helpersStubs = require('../__mocks__/helpers.stub');
 
-const {
-  generateTest,
-  getComponentName,
-  getComponentStoriesNames,
-  getTestDirectoryPath,
-} = helpers;
+const { generateTest, getComponentName, getComponentStoriesNames, getTestDirectoryPath } = helpers;
 
 const { testTemplateMock } = helpersMocks;
 
@@ -22,66 +17,55 @@ const {
   testFilePostfixes,
 } = helpersStubs;
 
-describe("helpers", () => {
+describe('helpers', () => {
   let fileContent;
-  const pathToGeneratedTestDirectory = path.resolve(
-    __dirname,
-    "../.generated-tests/"
-  );
+  const pathToGeneratedTestDirectory = path.resolve(__dirname, '../.generated-tests/');
 
   beforeEach(() => {
-    fileContent = fs.readFileSync(pathToStory, "utf8");
+    fileContent = fs.readFileSync(pathToStory, 'utf8');
   });
 
-  describe("getComponentName", () => {
+  describe('getComponentName', () => {
     test("should return 'Accordion'", () => {
-      expect(getComponentName(fileContent, componentNamePattern)).toEqual(
-        "Accordion"
-      );
+      expect(getComponentName(fileContent, componentNamePattern)).toEqual('Accordion');
     });
 
-    test("should catch an error", () => {
-      expect(() =>
-        getComponentName(fileContent, /[a-z]+(?=', module)/gi)
-      ).toThrowError();
+    test('should catch an error', () => {
+      expect(() => getComponentName(fileContent, /[a-z]+(?=", module)/gi)).toThrowError();
     });
   });
 
-  describe("getComponentStoriesNames", () => {
+  describe('getComponentStoriesNames', () => {
     test("should return ['Default', 'No-Content', 'With-remove-control']", () => {
       expect(getComponentStoriesNames(fileContent, storyNamePattern)).toEqual([
-        "Default",
-        "No-Content",
-        "With-remove-control",
+        'Default',
+        'No-Content',
+        'With-remove-control',
       ]);
     });
 
-    test("should catch an error", () => {
+    test('should catch an error', () => {
       expect(() =>
-        getComponentStoriesNames(fileContent, /[a-z ]+(?=', \(\) => )/gi)
+        getComponentStoriesNames(fileContent, /[a-z ]+(?=", \(\) => )/gi)
       ).toThrowError();
     });
   });
 
-  describe("getTestDirectoryPath", () => {
-    test("should return path to generated test directory", () => {
+  describe('getTestDirectoryPath', () => {
+    test('should return path to generated test directory', () => {
       expect(getTestDirectoryPath(pathToStory, testDirectoryPath)).toEqual(
         pathToGeneratedTestDirectory
       );
     });
   });
 
-  describe("generateTest", () => {
-    const componentName = "Accordion";
-    const componentStoryName = "Default";
+  describe('generateTest', () => {
+    const componentName = 'Accordion';
+    const componentStoryName = 'Default';
     const postfix = testFilePostfixes[0];
 
-    const createWriteStreamSpy = jest
-      .spyOn(fs, "createWriteStream")
-      .mockImplementation(() => {});
-    const writeFileSyncSpy = jest
-      .spyOn(fs, "writeFileSync")
-      .mockImplementation(() => {});
+    const createWriteStreamSpy = jest.spyOn(fs, 'createWriteStream').mockImplementation(() => {});
+    const writeFileSyncSpy = jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
 
     afterAll(() => {
       existsSyncSpy.mockRestore();
@@ -89,10 +73,8 @@ describe("helpers", () => {
       writeFileSyncSpy.mockRestore();
     });
 
-    test("should generate test file", () => {
-      const existsSyncSpy = jest
-        .spyOn(fs, "existsSync")
-        .mockImplementation(() => false);
+    test('should generate test file', () => {
+      const existsSyncSpy = jest.spyOn(fs, 'existsSync').mockImplementation(() => false);
 
       generateTest(
         getTestDirectoryPath(pathToStory, testDirectoryPath),
@@ -107,10 +89,8 @@ describe("helpers", () => {
       expect(writeFileSyncSpy).toHaveBeenCalled();
     });
 
-    test("should not generate test file", () => {
-      const existsSyncSpy = jest
-        .spyOn(fs, "existsSync")
-        .mockImplementation(() => true);
+    test('should not generate test file', () => {
+      const existsSyncSpy = jest.spyOn(fs, 'existsSync').mockImplementation(() => true);
 
       generateTest(
         getTestDirectoryPath(pathToStory, testDirectoryPath),
