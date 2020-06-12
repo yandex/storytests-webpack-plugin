@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const helpers = require('../helpers');
+const helpers = require('../src/helpers');
 const helpersMocks = require('../__mocks__/helpers.mock');
 const helpersStubs = require('../__mocks__/helpers.stub');
 
