@@ -1,0 +1,9 @@
+[
+  {
+    "path": "dist/index.js",
+    "brotli": true,
+    "gzip": false,
+    "limit": "15 KB",
+    "ignore": ["fs", "path"]
+  }
+]

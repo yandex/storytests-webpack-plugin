@@ -20,11 +20,12 @@
     "url": "https://github.com/yandex/storytests-webpack-plugin/issues"
   },
   "scripts": {
-    "build": "rollup -c ./rollup.config.js",
+    "build": "npx rollup -c ./rollup.config.js",
     "prepublishOnly": "npm run build",
     "lint": "eslint *.js --ignore-path .gitignore",
     "lint:fix": "eslint *.js --fix",
-    "test": "jest",
+    "size": "npm run build && size-limit",
+    "test": "npm run lint && jest && npm run size",
     "test:coverage": "jest --coverage"
   },
   "homepage": "https://github.com/yandex/storytests-webpack-plugin#readme",
@@ -32,6 +33,7 @@
     "@rollup/plugin-commonjs": "11.0.2",
     "@rollup/plugin-node-resolve": "7.1.1",
     "@rollup/plugin-url": "4.0.2",
+    "@size-limit/preset-small-lib": "4.5.0",
     "eslint": "6.8.0",
     "eslint-config-airbnb-base": "14.1.0",
     "eslint-config-prettier": "6.11.0",
@@ -41,7 +43,8 @@
     "jest": "26.0.1",
     "prettier": "2.0.5",
     "rollup-plugin-peer-deps-external": "2.2.2",
-    "rollup-plugin-terser": "5.2.0"
+    "rollup-plugin-terser": "5.2.0",
+    "size-limit": "4.5.0"
   },
   "dependencies": {
     "glob": "7.1.6"

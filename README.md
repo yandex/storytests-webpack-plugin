@@ -9,38 +9,42 @@ If you use Storybook and you want to cover all your stories by tests, this plugi
 This plugin creates test files based on your Storybook structure.
 
 ## Installation
+
 ```bash
 npm i storytests-webpack-plugin --save-dev
 ```
 
 ## Usage
+
 ### Define parameters
+
 1. path to stories
-    ```js
-    storyFilesPath: string; // e.g. "components/**/__stories__/*.stories.tsx"
-    ```
+   ```js
+   storyFilesPath: string; // e.g. "components/**/__stories__/*.stories.tsx"
+   ```
 2. pattern for component name in your story files
-    ```js
-    componentNamePattern: RegExp; // e.g. /[a-z]+(?=", module)/gi
-    ```
+   ```js
+   componentNamePattern: RegExp; // e.g. /[a-z]+(?=", module)/gi
+   ```
 3. pattern for story name in your story files
-    ```js
-    storyNamePattern: RegExp; // e.g. /[a-z ]+(?=", \(\) => )/gi
-    ```
+   ```js
+   storyNamePattern: RegExp; // e.g. /[a-z ]+(?=", \(\) => )/gi
+   ```
 4. path to directory with tests related to story
-    ```js
-    testDirectoryPath: string; // e.g." ../../tests"
-    ```
+   ```js
+   testDirectoryPath: string; // e.g." ../../tests"
+   ```
 5. postfixes for test files
-    ```js
-    testFilePostfixes: string[]; // e.g. ['hermione']
-    ```
+   ```js
+   testFilePostfixes: string[]; // e.g. ['hermione']
+   ```
 6. function for generating test file
-    ```js
-    testTemplate: (componentName: string, storyName: string) => string;
-    ```
+   ```js
+   testTemplate: (componentName: string, storyName: string) => string;
+   ```
 
 ### Add the plugin to your webpack config
+
 ```js
 import StorytestsWebpackPlugin from 'storytests-webpack-plugin';
 import { componentNamePattern, storyFilesPath, storyNamePattern, testDirectoryPath, testFilePostfixes } from './constants/';
@@ -60,3 +64,9 @@ module.exports = {
     ]
 }
 ```
+
+## For contributors
+
+Required Node.js version: 12.18.0  
+Required npm version: 6.14.4  
+How to install: https://nodejs.org/en/download/
