@@ -20,7 +20,7 @@
     "url": "https://github.com/yandex/storytests-webpack-plugin/issues"
   },
   "scripts": {
-    "build": "rollup -c ./rollup.config.js",
+    "build": "npx rollup -c ./rollup.config.js",
     "prepublishOnly": "npm run build",
     "lint": "eslint *.js --ignore-path .gitignore",
     "lint:fix": "eslint *.js --fix",
