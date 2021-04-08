@@ -1,6 +1,6 @@
 {
   "name": "storytests-webpack-plugin",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "description": "Plugin creates test files based on Storybook structure",
   "main": "dist/index.js",
   "files": [

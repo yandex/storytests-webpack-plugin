@@ -2,23 +2,19 @@ const fs = require('fs');
 const path = require('path');
 
 const getComponentName = (fileContent, pattern) => {
-  const match = fileContent.match(pattern);
+  const matches = fileContent.match(pattern);
 
-  if (match === null) {
+  if (matches === null) {
     throw new Error("Couldn't find component name, check componentNamePattern");
   }
 
-  return match[0];
+  return matches[0];
 };
 
 const getComponentStoriesNames = (fileContent, pattern) => {
-  const match = fileContent.match(pattern);
+  const matches = fileContent.match(pattern);
 
-  if (match === null) {
-    throw new Error("Couldn't find story name, check storyNamePattern");
-  }
-
-  return match.map((storyName) => storyName.replace(/\s/gi, '-'));
+  return matches === null ? [] : matches;
 };
 
 const getTestDirectoryPath = (pathToStory, relatedPathToTestDirectory) =>
@@ -26,19 +22,29 @@ const getTestDirectoryPath = (pathToStory, relatedPathToTestDirectory) =>
 
 const generateTest = (
   testDirectoryPath,
+  generateFileName,
   componentName,
-  componentStoryName,
+  componentStoryNames,
   postfix,
   testTemplate
 ) => {
-  const testPath = path.resolve(testDirectoryPath, `${componentStoryName}.${postfix}.js`);
+  const testPath = path.resolve(testDirectoryPath, generateFileName(componentName, postfix));
 
   if (fs.existsSync(testPath)) {
     return;
   }
 
-  fs.createWriteStream(testPath, 'utf8');
-  fs.writeFileSync(testPath, testTemplate(componentName, componentStoryName), 'utf8');
+  const content = testTemplate(componentName, componentStoryNames, postfix);
+
+  if (content === false) {
+    return;
+  }
+
+  if (!fs.existsSync(testDirectoryPath)) {
+    fs.mkdirSync(testDirectoryPath, { recursive: true });
+  }
+
+  fs.writeFileSync(testPath, content, 'utf8');
 };
 
 module.exports = {

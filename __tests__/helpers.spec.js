@@ -7,7 +7,7 @@ const helpersStubs = require('../__mocks__/helpers.stub');
 
 const { generateTest, getComponentName, getComponentStoriesNames, getTestDirectoryPath } = helpers;
 
-const { testTemplateMock } = helpersMocks;
+const { testTemplateMock, generateFileNameMock } = helpersMocks;
 
 const {
   componentNamePattern,
@@ -26,28 +26,28 @@ describe('helpers', () => {
   });
 
   describe('getComponentName', () => {
-    test("should return 'Accordion'", () => {
-      expect(getComponentName(fileContent, componentNamePattern)).toEqual('Accordion');
+    test('should return matched component name unchanged', () => {
+      expect(getComponentName(fileContent, componentNamePattern)).toEqual(
+        'Components/RoundedButton'
+      );
     });
 
-    test('should catch an error', () => {
-      expect(() => getComponentName(fileContent, /[a-z]+(?=", module)/gi)).toThrowError();
+    test('should throw an error if no match is found', () => {
+      expect(() => getComponentName(fileContent, /(?<=title: ")[a-z]+/gi)).toThrowError();
     });
   });
 
   describe('getComponentStoriesNames', () => {
-    test("should return ['Default', 'No-Content', 'With-remove-control']", () => {
+    test('should return matched stories names unchanged', () => {
       expect(getComponentStoriesNames(fileContent, storyNamePattern)).toEqual([
-        'Default',
-        'No-Content',
-        'With-remove-control',
+        'Primary',
+        'Secondary',
+        'SecondaryWithLongLabel',
       ]);
     });
 
-    test('should catch an error', () => {
-      expect(() =>
-        getComponentStoriesNames(fileContent, /[a-z ]+(?=", \(\) => )/gi)
-      ).toThrowError();
+    test('should return an empty array if not stories are found', () => {
+      expect(getComponentStoriesNames(fileContent, /[a-z ]+(?=", \(\) => )/gi)).toEqual([]);
     });
   });
 
@@ -60,17 +60,15 @@ describe('helpers', () => {
   });
 
   describe('generateTest', () => {
-    const componentName = 'Accordion';
-    const componentStoryName = 'Default';
+    const componentName = 'Components/RoundedButton';
+    const componentStoryNames = ['SecondaryWithLongLabel'];
     const postfix = testFilePostfixes[0];
 
     const existsSyncSpy = jest.spyOn(fs, 'existsSync');
-    const createWriteStreamSpy = jest.spyOn(fs, 'createWriteStream').mockImplementation(() => {});
     const writeFileSyncSpy = jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
 
     afterAll(() => {
       existsSyncSpy.mockRestore();
-      createWriteStreamSpy.mockRestore();
       writeFileSyncSpy.mockRestore();
     });
 
@@ -79,30 +77,46 @@ describe('helpers', () => {
 
       generateTest(
         getTestDirectoryPath(pathToStory, testDirectoryPath),
+        generateFileNameMock,
         componentName,
-        componentStoryName,
+        componentStoryNames,
         postfix,
         testTemplateMock
       );
 
       expect(existsSyncSpy).toHaveBeenCalled();
-      expect(createWriteStreamSpy).toHaveBeenCalled();
       expect(writeFileSyncSpy).toHaveBeenCalled();
     });
 
-    test('should not generate test file', () => {
+    test('should not generate test file if already exists', () => {
       existsSyncSpy.mockImplementation(() => true);
 
       generateTest(
         getTestDirectoryPath(pathToStory, testDirectoryPath),
+        generateFileNameMock,
         componentName,
-        componentStoryName,
+        componentStoryNames,
         postfix,
         testTemplateMock
       );
 
       expect(existsSyncSpy).toHaveBeenCalled();
-      expect(createWriteStreamSpy).not.toHaveBeenCalled();
+      expect(writeFileSyncSpy).not.toHaveBeenCalled();
+    });
+
+    test('should not generate test file if false is returned', () => {
+      existsSyncSpy.mockImplementation(() => false);
+
+      generateTest(
+        getTestDirectoryPath(pathToStory, testDirectoryPath),
+        generateFileNameMock,
+        componentName,
+        componentStoryNames,
+        postfix,
+        () => false
+      );
+
+      expect(existsSyncSpy).toHaveBeenCalled();
       expect(writeFileSyncSpy).not.toHaveBeenCalled();
     });
   });
