@@ -19,6 +19,7 @@ class StorytestsWebpackPlugin {
   apply(compiler) {
     compiler.hooks.run.tap(pluginName, () => {
       const {
+        generateFileName,
         componentNamePattern,
         storyFilesPath,
         storyNamePattern,
@@ -51,7 +52,14 @@ class StorytestsWebpackPlugin {
 
           testFilePostfixes.forEach((postfix) => {
             if (isString(postfix)) {
-              generateTest(testDirectory, componentName, componentStories, postfix, testTemplate);
+              generateTest(
+                testDirectory,
+                generateFileName,
+                componentName,
+                componentStories,
+                postfix,
+                testTemplate
+              );
             }
           });
         });
@@ -61,6 +69,7 @@ class StorytestsWebpackPlugin {
 
   checkArgs() {
     const {
+      generateFileName,
       componentNamePattern,
       storyFilesPath,
       storyNamePattern,
@@ -97,6 +106,10 @@ class StorytestsWebpackPlugin {
 
     if (!isFunction(testTemplate)) {
       throw new Error(`Expected testTemplate to be a function but got ${testTemplate}`);
+    }
+
+    if (!isFunction(generateFileName)) {
+      throw new Error(`Expected generateFileName to be a function but got ${generateFileName}`);
     }
   }
 }

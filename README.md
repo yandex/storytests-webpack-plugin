@@ -19,28 +19,32 @@ npm i storytests-webpack-plugin --save-dev
 ### Define parameters
 
 1. path to stories
-   ```js
+   ```ts
    storyFilesPath: string; // e.g. "components/**/__stories__/*.stories.tsx"
    ```
 2. pattern for component name in your story files
-   ```js
+   ```ts
    componentNamePattern: RegExp; // e.g. /[a-z]+(?=", module)/gi
    ```
 3. pattern for story name in your story files
-   ```js
+   ```ts
    storyNamePattern: RegExp; // e.g. /[a-z ]+(?=", \(\) => )/gi
    ```
 4. path to directory with tests related to story
-   ```js
+   ```ts
    testDirectoryPath: string; // e.g." ../../tests"
    ```
 5. postfixes for test files
-   ```js
+   ```ts
    testFilePostfixes: string[]; // e.g. ['hermione']
    ```
 6. function for generating test file
-   ```js
+   ```ts
    testTemplate: (componentName: string, storyNames: string[], postfix: string) => string;
+   ```
+7. function for generating test file names
+   ```ts
+   generateFileName: (componentName: string, postfix: string) => string;
    ```
 
 ### Add the plugin to your webpack config

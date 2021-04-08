@@ -26,12 +26,13 @@ const getTestDirectoryPath = (pathToStory, relatedPathToTestDirectory) =>
 
 const generateTest = (
   testDirectoryPath,
+  generateFileName,
   componentName,
   componentStoryNames,
   postfix,
   testTemplate
 ) => {
-  const testPath = path.resolve(testDirectoryPath, `${componentName}.${postfix}.js`);
+  const testPath = path.resolve(testDirectoryPath, generateFileName(componentName, postfix));
 
   if (fs.existsSync(testPath)) {
     return;

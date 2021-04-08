@@ -7,7 +7,7 @@ const helpersStubs = require('../__mocks__/helpers.stub');
 
 const { generateTest, getComponentName, getComponentStoriesNames, getTestDirectoryPath } = helpers;
 
-const { testTemplateMock } = helpersMocks;
+const { testTemplateMock, generateFileNameMock } = helpersMocks;
 
 const {
   componentNamePattern,
@@ -81,6 +81,7 @@ describe('helpers', () => {
 
       generateTest(
         getTestDirectoryPath(pathToStory, testDirectoryPath),
+        generateFileNameMock,
         componentName,
         componentStoryNames,
         postfix,
@@ -97,6 +98,7 @@ describe('helpers', () => {
 
       generateTest(
         getTestDirectoryPath(pathToStory, testDirectoryPath),
+        generateFileNameMock,
         componentName,
         componentStoryNames,
         postfix,
