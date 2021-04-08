@@ -38,8 +38,18 @@ const generateTest = (
     return;
   }
 
+  const content = testTemplate(componentName, componentStoryNames, postfix);
+
+  if (content === false) {
+    return;
+  }
+
+  if (!fs.existsSync(testDirectoryPath)) {
+    fs.mkdirSync(testDirectoryPath, { recursive: true });
+  }
+
   fs.createWriteStream(testPath, 'utf8');
-  fs.writeFileSync(testPath, testTemplate(componentName, componentStoryNames, postfix), 'utf8');
+  fs.writeFileSync(testPath, content, 'utf8');
 };
 
 module.exports = {

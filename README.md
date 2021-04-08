@@ -40,7 +40,7 @@ npm i storytests-webpack-plugin --save-dev
    ```
 6. function for generating test file
    ```ts
-   testTemplate: (componentName: string, storyNames: string[], postfix: string) => string;
+   testTemplate: (componentName: string, storyNames: string[], postfix: string) => string | false;
    ```
 7. function for generating test file names
    ```ts

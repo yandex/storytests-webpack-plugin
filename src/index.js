@@ -46,10 +46,6 @@ class StorytestsWebpackPlugin {
 
           const testDirectory = getTestDirectoryPath(filePath, testDirectoryPath);
 
-          if (!fs.existsSync(testDirectory)) {
-            fs.mkdirSync(testDirectory, { recursive: true });
-          }
-
           testFilePostfixes.forEach((postfix) => {
             if (isString(postfix)) {
               generateTest(
