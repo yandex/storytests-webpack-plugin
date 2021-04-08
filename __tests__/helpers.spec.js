@@ -63,7 +63,7 @@ describe('helpers', () => {
 
   describe('generateTest', () => {
     const componentName = 'Components/RoundedButton';
-    const componentStoryName = 'SecondaryWithLongLabel';
+    const componentStoryNames = ['SecondaryWithLongLabel'];
     const postfix = testFilePostfixes[0];
 
     const existsSyncSpy = jest.spyOn(fs, 'existsSync');
@@ -82,7 +82,7 @@ describe('helpers', () => {
       generateTest(
         getTestDirectoryPath(pathToStory, testDirectoryPath),
         componentName,
-        componentStoryName,
+        componentStoryNames,
         postfix,
         testTemplateMock
       );
@@ -98,7 +98,7 @@ describe('helpers', () => {
       generateTest(
         getTestDirectoryPath(pathToStory, testDirectoryPath),
         componentName,
-        componentStoryName,
+        componentStoryNames,
         postfix,
         testTemplateMock
       );

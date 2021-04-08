@@ -49,13 +49,11 @@ class StorytestsWebpackPlugin {
             fs.mkdirSync(testDirectory, { recursive: true });
           }
 
-          componentStories.forEach((story) =>
-            testFilePostfixes.forEach((postfix) => {
-              isString(postfix, 'testFilePostfixes');
+          testFilePostfixes.forEach((postfix) => {
+            isString(postfix, 'testFilePostfixes');
 
-              generateTest(testDirectory, componentName, story, postfix, testTemplate);
-            })
-          );
+            generateTest(testDirectory, componentName, componentStories, postfix, testTemplate);
+          });
         });
       });
     });

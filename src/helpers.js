@@ -27,18 +27,18 @@ const getTestDirectoryPath = (pathToStory, relatedPathToTestDirectory) =>
 const generateTest = (
   testDirectoryPath,
   componentName,
-  componentStoryName,
+  componentStoryNames,
   postfix,
   testTemplate
 ) => {
-  const testPath = path.resolve(testDirectoryPath, `${componentStoryName}.${postfix}.js`);
+  const testPath = path.resolve(testDirectoryPath, `${componentName}.${postfix}.js`);
 
   if (fs.existsSync(testPath)) {
     return;
   }
 
   fs.createWriteStream(testPath, 'utf8');
-  fs.writeFileSync(testPath, testTemplate(componentName, componentStoryName), 'utf8');
+  fs.writeFileSync(testPath, testTemplate(componentName, componentStoryNames), 'utf8');
 };
 
 module.exports = {
