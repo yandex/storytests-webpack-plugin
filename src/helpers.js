@@ -2,23 +2,23 @@ const fs = require('fs');
 const path = require('path');
 
 const getComponentName = (fileContent, pattern) => {
-  const match = fileContent.match(pattern);
+  const matches = fileContent.match(pattern);
 
-  if (match === null) {
+  if (matches === null) {
     throw new Error("Couldn't find component name, check componentNamePattern");
   }
 
-  return match[0];
+  return matches[0];
 };
 
 const getComponentStoriesNames = (fileContent, pattern) => {
-  const match = fileContent.match(pattern);
+  const matches = fileContent.match(pattern);
 
-  if (match === null) {
+  if (matches === null) {
     throw new Error("Couldn't find story name, check storyNamePattern");
   }
 
-  return match.map((storyName) => storyName.replace(/\s/gi, '-'));
+  return matches;
 };
 
 const getTestDirectoryPath = (pathToStory, relatedPathToTestDirectory) =>
