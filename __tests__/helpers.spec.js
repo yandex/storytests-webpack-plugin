@@ -46,10 +46,8 @@ describe('helpers', () => {
       ]);
     });
 
-    test('should throw an error if no matches are found', () => {
-      expect(() =>
-        getComponentStoriesNames(fileContent, /[a-z ]+(?=", \(\) => )/gi)
-      ).toThrowError();
+    test('should return an empty array if not stories are found', () => {
+      expect(getComponentStoriesNames(fileContent, /[a-z ]+(?=", \(\) => )/gi)).toEqual([]);
     });
   });
 

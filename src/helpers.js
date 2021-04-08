@@ -14,11 +14,7 @@ const getComponentName = (fileContent, pattern) => {
 const getComponentStoriesNames = (fileContent, pattern) => {
   const matches = fileContent.match(pattern);
 
-  if (matches === null) {
-    throw new Error("Couldn't find story name, check storyNamePattern");
-  }
-
-  return matches;
+  return matches === null ? [] : matches;
 };
 
 const getTestDirectoryPath = (pathToStory, relatedPathToTestDirectory) =>
