@@ -26,25 +26,27 @@ describe('helpers', () => {
   });
 
   describe('getComponentName', () => {
-    test("should return 'Accordion'", () => {
-      expect(getComponentName(fileContent, componentNamePattern)).toEqual('Accordion');
+    test('should return matched component name unchanged', () => {
+      expect(getComponentName(fileContent, componentNamePattern)).toEqual(
+        'Components/RoundedButton'
+      );
     });
 
-    test('should catch an error', () => {
-      expect(() => getComponentName(fileContent, /[a-z]+(?=", module)/gi)).toThrowError();
+    test('should throw an error if no match is found', () => {
+      expect(() => getComponentName(fileContent, /(?<=title: ")[a-z]+/gi)).toThrowError();
     });
   });
 
   describe('getComponentStoriesNames', () => {
-    test("should return ['Default', 'No-Content', 'With-remove-control']", () => {
+    test('should return matched stories names unchanged', () => {
       expect(getComponentStoriesNames(fileContent, storyNamePattern)).toEqual([
-        'Default',
-        'No-Content',
-        'With-remove-control',
+        'Primary',
+        'Secondary',
+        'SecondaryWithLongLabel',
       ]);
     });
 
-    test('should catch an error', () => {
+    test('should throw an error if no matches are found', () => {
       expect(() =>
         getComponentStoriesNames(fileContent, /[a-z ]+(?=", \(\) => )/gi)
       ).toThrowError();
@@ -60,8 +62,8 @@ describe('helpers', () => {
   });
 
   describe('generateTest', () => {
-    const componentName = 'Accordion';
-    const componentStoryName = 'Default';
+    const componentName = 'Components/RoundedButton';
+    const componentStoryName = 'SecondaryWithLongLabel';
     const postfix = testFilePostfixes[0];
 
     const existsSyncSpy = jest.spyOn(fs, 'existsSync');
