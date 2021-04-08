@@ -38,7 +38,7 @@ const generateTest = (
   }
 
   fs.createWriteStream(testPath, 'utf8');
-  fs.writeFileSync(testPath, testTemplate(componentName, componentStoryNames), 'utf8');
+  fs.writeFileSync(testPath, testTemplate(componentName, componentStoryNames, postfix), 'utf8');
 };
 
 module.exports = {
