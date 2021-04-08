@@ -50,9 +50,9 @@ class StorytestsWebpackPlugin {
           }
 
           testFilePostfixes.forEach((postfix) => {
-            isString(postfix, 'testFilePostfixes');
-
-            generateTest(testDirectory, componentName, componentStories, postfix, testTemplate);
+            if (isString(postfix)) {
+              generateTest(testDirectory, componentName, componentStories, postfix, testTemplate);
+            }
           });
         });
       });
