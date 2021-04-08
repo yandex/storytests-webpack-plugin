@@ -65,12 +65,10 @@ describe('helpers', () => {
     const postfix = testFilePostfixes[0];
 
     const existsSyncSpy = jest.spyOn(fs, 'existsSync');
-    const createWriteStreamSpy = jest.spyOn(fs, 'createWriteStream').mockImplementation(() => {});
     const writeFileSyncSpy = jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
 
     afterAll(() => {
       existsSyncSpy.mockRestore();
-      createWriteStreamSpy.mockRestore();
       writeFileSyncSpy.mockRestore();
     });
 
@@ -87,11 +85,10 @@ describe('helpers', () => {
       );
 
       expect(existsSyncSpy).toHaveBeenCalled();
-      expect(createWriteStreamSpy).toHaveBeenCalled();
       expect(writeFileSyncSpy).toHaveBeenCalled();
     });
 
-    test('should not generate test file', () => {
+    test('should not generate test file if already exists', () => {
       existsSyncSpy.mockImplementation(() => true);
 
       generateTest(
@@ -104,7 +101,22 @@ describe('helpers', () => {
       );
 
       expect(existsSyncSpy).toHaveBeenCalled();
-      expect(createWriteStreamSpy).not.toHaveBeenCalled();
+      expect(writeFileSyncSpy).not.toHaveBeenCalled();
+    });
+
+    test('should not generate test file if false is returned', () => {
+      existsSyncSpy.mockImplementation(() => false);
+
+      generateTest(
+        getTestDirectoryPath(pathToStory, testDirectoryPath),
+        generateFileNameMock,
+        componentName,
+        componentStoryNames,
+        postfix,
+        () => false
+      );
+
+      expect(existsSyncSpy).toHaveBeenCalled();
       expect(writeFileSyncSpy).not.toHaveBeenCalled();
     });
   });

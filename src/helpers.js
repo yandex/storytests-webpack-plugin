@@ -44,7 +44,6 @@ const generateTest = (
     fs.mkdirSync(testDirectoryPath, { recursive: true });
   }
 
-  fs.createWriteStream(testPath, 'utf8');
   fs.writeFileSync(testPath, content, 'utf8');
 };
 
