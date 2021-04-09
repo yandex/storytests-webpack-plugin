@@ -38,11 +38,16 @@ npm i storytests-webpack-plugin --save-dev
    ```ts
    testFilePostfixes: string[]; // e.g. ['hermione']
    ```
-6. function for generating test file
+6. whether to generate test files for each story or each component
    ```ts
-   testTemplate: (componentName: string, storyNames: string[], postfix: string) => string | false;
+   testGenerationStrategy: 'story' | 'component';
    ```
-7. function for generating test file names
+7. function for generating test file (`storyNames` is a `string` for `"story"` test generation strategy and `string[]` for `"component`")
+   ```ts
+   testTemplate: (componentName: string, storyNames: string | string[], postfix: string) =>
+     string | false;
+   ```
+8. function for generating test file names
    ```ts
    generateFileName: (componentName: string, postfix: string) => string;
    ```

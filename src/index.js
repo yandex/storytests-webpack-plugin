@@ -1,7 +1,13 @@
 const fs = require('fs');
 const glob = require('glob');
 
-const { isArray, isFunction, isRegExp, isString } = require('./check-errors');
+const {
+  isArray,
+  isFunction,
+  isRegExp,
+  isString,
+  isTestGenerationStrategy,
+} = require('./check-errors');
 const {
   generateTest,
   getComponentName,
@@ -21,6 +27,7 @@ class StorytestsWebpackPlugin {
       const {
         generateFileName,
         componentNamePattern,
+        testGenerationStrategy,
         storyFilesPath,
         storyNamePattern,
         testDirectoryPath,
@@ -47,7 +54,11 @@ class StorytestsWebpackPlugin {
           const testDirectory = getTestDirectoryPath(filePath, testDirectoryPath);
 
           testFilePostfixes.forEach((postfix) => {
-            if (isString(postfix)) {
+            if (!isString(postfix)) {
+              return;
+            }
+
+            if (testGenerationStrategy === 'component') {
               generateTest(
                 testDirectory,
                 generateFileName,
@@ -56,7 +67,20 @@ class StorytestsWebpackPlugin {
                 postfix,
                 testTemplate
               );
+
+              return;
             }
+
+            componentStories.forEach((story) => {
+              generateTest(
+                testDirectory,
+                generateFileName,
+                componentName,
+                story,
+                postfix,
+                testTemplate
+              );
+            });
           });
         });
       });
@@ -67,6 +91,7 @@ class StorytestsWebpackPlugin {
     const {
       generateFileName,
       componentNamePattern,
+      testGenerationStrategy,
       storyFilesPath,
       storyNamePattern,
       testDirectoryPath,
@@ -88,6 +113,12 @@ class StorytestsWebpackPlugin {
 
     if (!isString(storyFilesPath)) {
       throw new Error(`Expected storyFilesPath to be string but got ${storyFilesPath}`);
+    }
+
+    if (!isTestGenerationStrategy(testGenerationStrategy)) {
+      throw new Error(
+        `Expected testGenerationStrategy to be "component" or "story" but got ${testGenerationStrategy}`
+      );
     }
 
     if (!isString(testDirectoryPath)) {
