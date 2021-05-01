@@ -70,3 +70,14 @@ module.exports = {
 Required Node.js version: 12.18.0  
 Required npm version: 6.14.4  
 How to install: https://nodejs.org/en/download/
+
+## How to publish
+
+1. Update package version in `package.json` and `package-lock.json`
+
+2. Run:
+
+```
+npm run build
+npm publish
+```
